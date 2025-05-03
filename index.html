@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Byeanime</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+    }
+    header {
+      background-color: #202020;
+      padding: 20px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #181818;
+      padding: 10px;
+      gap: 20px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .search-bar {
+      text-align: center;
+      margin: 20px;
+    }
+    .search-bar input {
+      padding: 10px;
+      width: 300px;
+      border-radius: 5px;
+      border: none;
+    }
+    .filters {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .filters select {
+      padding: 10px;
+      border-radius: 5px;
+      margin: 0 5px;
+    }
+    .anime-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .anime-card {
+      background-color: #2a2a2a;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .anime-card:hover {
+      transform: scale(1.05);
+    }
+    .anime-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    .anime-card .title {
+      text-align: center;
+      padding: 10px;
+    }
+    .player-section {
+      display: none;
+      padding: 20px;
+      text-align: center;
+    }
+    .player-section h2 {
+      margin-bottom: 10px;
+    }
+    .episode-buttons {
+      margin-bottom: 10px;
+    }
+    .episode-buttons button {
+      margin: 2px;
+      padding: 8px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .episode-buttons button:hover {
+      background-color: #666;
+    }
+    video {
+      width: 90%;
+      max-width: 800px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>Byeanime</header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Genres</a>
+    <a href="#">Sub</a>
+    <a href="#">Dub</a>
+  </nav>
+  <div class="search-bar">
+    <input type="text" placeholder="Search anime...">
+  </div>
+  <div class="filters">
+    <select>
+      <option>All Genres</option>
+      <option>Action</option>
+      <option>Romance</option>
+      <option>Fantasy</option>
+      <option>Sci-Fi</option>
+    </select>
+    <select>
+      <option>All Types</option>
+      <option>Sub</option>
+      <option>Dub</option>
+    </select>
+  </div>
+  <div class="anime-grid">
+    <div class="anime-card" onclick="loadAnime('Naruto')">
+      <img src="https://via.placeholder.com/200x250.png?text=Naruto" alt="Naruto">
+      <div class="title">Naruto</div>
+    </div>
+    <div class="anime-card" onclick="loadAnime('One Piece')">
+      <img src="https://via.placeholder.com/200x250.png?text=One+Piece" alt="One Piece">
+      <div class="title">One Piece</div>
+    </div>
+    <div class="anime-card" onclick="loadAnime('Demon Slayer')">
+      <img src="https://via.placeholder.com/200x250.png?text=Demon+Slayer" alt="Demon Slayer">
+      <div class="title">Demon Slayer</div>
+    </div>
+    <div class="anime-card" onclick="loadAnime('Attack on Titan')">
+      <img src="https://via.placeholder.com/200x250.png?text=Attack+on+Titan" alt="Attack on Titan">
+      <div class="title">Attack on Titan</div>
+    </div>
+  </div>
+  <div class="player-section" id="playerSection">
+    <h2 id="animeTitle">Anime Title</h2>
+    <div class="episode-buttons" id="episodeList"></div>
+    <video id="animePlayer" controls>
+      <source id="videoSource" src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <script>
+    const episodes = {
+      'Naruto': ["ep1.mp4", "ep2.mp4", "ep3.mp4"],
+      'One Piece': ["ep1.mp4", "ep2.mp4"],
+      'Demon Slayer': ["ep1.mp4", "ep2.mp4", "ep3.mp4", "ep4.mp4"],
+      'Attack on Titan': ["ep1.mp4", "ep2.mp4"]
+    };
+
+    function loadAnime(animeName) {
+      document.getElementById('animeTitle').innerText = animeName;
+      const episodeList = document.getElementById('episodeList');
+      episodeList.innerHTML = '';
+
+      episodes[animeName].forEach((ep, index) => {
+        const btn = document.createElement('button');
+        btn.innerText = `Episode ${index + 1}`;
+        btn.onclick = () => {
+          document.getElementById('videoSource').src = `https://www.w3schools.com/html/mov_bbb.mp4`; // Placeholder URL
+          const player = document.getElementById('animePlayer');
+          player.load();
+          player.play();
+        };
+        episodeList.appendChild(btn);
+      });
+
+      document.getElementById('playerSection').style.display = 'block';
+      document.getElementById('playerSection').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
